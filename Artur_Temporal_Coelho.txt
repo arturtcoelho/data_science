@@ -1,0 +1,13 @@
+https://github.com/arturtcoelho/data_science
+
+IOT dataset: https://www.stratosphereips.org/datasets-iot23
+Esse dataset consiste de trafico de rede em equipamentos de IOT, 
+capturados entre 2018 e 2019, sendo eles rotulados de acordo com o tipo de ataque
+Contem boa documentação e 20GB de dados para análise
+
+Malicious URL: http://www.sysnet.ucsd.edu/projects/url/
+Esse dataset contem URLs maliciosas, spams, phishing e exploits, para serem categorizadas
+O trabalho que esse datasite originou utiliza machine learning com SVMs
+
+Senhas do Yahoo: https://figshare.com/articles/dataset/Yahoo_Password_Frequency_Corpus/2057937
+Analise de senhas coletadas do site Yahoo!, separadas por categoria de usuário
