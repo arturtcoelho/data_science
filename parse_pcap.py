@@ -4,8 +4,8 @@
 #https://github.com/arturtcoelho/data_science
 
 from scapy.all import rdpcap, IP, TCP, UDP
-
-packets = rdpcap('trace.pcap')
+base_url = '/home/coelho/data_science/opt/Malware-Project/BigDataset/IoTScenarios/'
+packets = rdpcap(base_url+'CTU-IoT-Malware-Capture-1-1/2018-05-09-192.168.100.103.pcap')
 
 num_packages = len(packets)
 num_ip = 0
@@ -18,7 +18,7 @@ exec_errors = 0
 tcp_sessions = {}
 udp_sessions = {}
 
-for p in packets:
+for p in packets[:100]:
     try:
         # p.show()
 
