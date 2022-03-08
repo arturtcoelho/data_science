@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+''' 
+Author: Artur Temporal Coelho
+GRR20190471
+
+This project can be found on: https://github.com/arturtcoelho/data_science
+'''
+
 import re
 import matplotlib as mpl
 
@@ -93,6 +101,12 @@ if __name__ == '__main__':
     
     ''' Comment:
 
+        The info contained in the source file represents the data capture of IOT devices
+        Each capture contains the same data format:
+        (Roughly represented here)
+        Timestamp, id, source ip, source port, destination ip, destination port, 
+        protocol, service, duration, number of bytes, etc., in the end they are labeled as Begning or Malicious
+
         With a basic human analysis is possible to note some simple caractheristics in this capture (20-1)
 
         Only 3 addresses made calls in this capture, and 99.94% of them were made by a single one
@@ -107,4 +121,6 @@ if __name__ == '__main__':
         With a quick look on the source file its possible to note that the malicious calls were not 
         made by the main address + port combination, and were in fact made TO the same address + port combination
         This could tell us that a combined key of two ore more columns could be usefull to get a more in depht analysis
+
+        The malicious calls are also made using tcp and no dns
     '''
