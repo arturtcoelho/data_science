@@ -18,25 +18,32 @@ fields=[
 # 'uid',
 # 'id.orig_h',
 # 'id.orig_p',
-'id.resp_h',
-'id.resp_p',
-'proto',
-'service',
+# 'id.resp_h',
+# 'id.resp_p',
+# 'proto',
+# 'service',
 'duration',
-'orig_bytes',
-'resp_bytes',
-'conn_state',
-'local_orig',
-'local_resp',
-'missed_byteshistory',
-'orig_pkts',
-'orig_ip_bytes',
+# 'orig_bytes',
+# 'resp_bytes',
+# 'conn_state',
+# 'local_orig',
+# 'local_resp',
+# 'missed_byteshistory',
+# 'orig_pkts',
+# 'orig_ip_bytes',
 'resp_pkts',
-'resp_ip_bytes',
-'tunnel_parents',
+# 'resp_ip_bytes',
+# 'tunnel_parents',
 # 'label',
 # 'detailed-label'
 ]
+
+def map_val(val):
+    try:
+        return float(val)
+    except ValueError:
+        return 0
+
 
 if __name__ == '__main__':
     '''
@@ -52,8 +59,10 @@ if __name__ == '__main__':
         #     for j in fields:
         i = fields[0]
         j = fields[1]
-        plt.scatter(mal_df[i], mal_df[j], c='red')
-        plt.scatter(beg_df[i], beg_df[j], c='blue')
+        print(i)
+        print(j)
+        plt.scatter(mal_df.applymap(map_val)[i], mal_df.applymap(map_val)[j], c='red')
+        plt.scatter(beg_df.applymap(map_val)[i], beg_df.applymap(map_val)[j], c='blue')
         plt.xlabel(i)
         plt.ylabel(j)
         # plt.savefig(f'./images/{i}_{j}.png')
