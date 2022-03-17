@@ -61,6 +61,7 @@ if __name__ == '__main__':
     try:
         datafile = 'conn.log.labeled'
         df = pd.read_csv('conn.log.labeled', delim_whitespace=True, low_memory=False)
+        df = df.iloc[::100, :]
 
         # make enum dict of enum fields
         for col in df:
@@ -82,7 +83,9 @@ if __name__ == '__main__':
         beg_df = df.loc[df['label'] == 'Benign']
 
         for field1, func1 in fields:
+            print(field1)
             for field2, func2 in fields:
+                print('-', field2)
                 try:
 
                     if field1==field2:
@@ -90,8 +93,6 @@ if __name__ == '__main__':
                     if field1 not in [f[0] for f in fields] or field2 not in [f[0] for f in fields]:
                         continue
 
-                    print(field1)
-                    print(field2)
 
                     def map_func(col, row, func):
                         return func(col, row)
