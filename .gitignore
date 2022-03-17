@@ -3,3 +3,4 @@ __pycache__
 *.pcap
 opt
 *.tar.gz
+images
