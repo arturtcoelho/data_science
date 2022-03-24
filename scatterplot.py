@@ -21,38 +21,34 @@ def number_map(col, row):
     except ValueError:
         return 0
 
-def enum_map(col, row):
-    try:
-        return enum_dict[col][row]
-    except KeyError:
-        return -1
-
-
 fields=[
 #'ts',
 # 'uid',
 # 'id.orig_h',
 # 'id.orig_p',
 # ('id.resp_h', enum_map),
-('id.resp_p', enum_map),
+'id.resp_p',
 # ('proto', enum_map),
-# ('service', enum_map),
-('duration', number_map),
-('orig_bytes', number_map),
-('resp_bytes', enum_map),
-('conn_state', enum_map),
-('local_orig', enum_map),
-('local_resp', enum_map),
-('missed_bytes', enum_map),
-('history', enum_map),
-('orig_pkts', number_map),
-('orig_ip_bytes', number_map),
-('resp_pkts', number_map),
-('resp_ip_bytes', number_map),
-('tunnel_parents', enum_map),
+'service',
+'duration',
+'orig_bytes',
+'resp_bytes',
+'conn_state',
+'local_orig',
+'local_resp',
+'missed_bytes',
+'history',
+'orig_pkts',
+'orig_ip_bytes',
+'resp_pkts',
+'resp_ip_bytes',
+'tunnel_parents',
 # 'label',
 # 'detailed-label'
 ]
+
+def mask(df, f):
+    return df[f(df)]
 
 if __name__ == '__main__':
     '''
@@ -61,7 +57,7 @@ if __name__ == '__main__':
     try:
         datafile = 'conn.log.labeled'
         df = pd.read_csv('conn.log.labeled', delim_whitespace=True, low_memory=False)
-        df = df.iloc[::100, :]
+        df = df.iloc[::1000, :] # every n rows
 
         # make enum dict of enum fields
         for col in df:
@@ -82,9 +78,36 @@ if __name__ == '__main__':
         mal_df = df.loc[df['label'] == 'Malicious']
         beg_df = df.loc[df['label'] == 'Benign']
 
-        for field1, func1 in fields:
+        for col in mal_df:
+            if col not in fields:
+                continue
+            for i, row in enumerate(df[col]):
+                try:
+                    row = float(row)
+                except Exception:
+                    try:
+                        mal_df.drop(i*1000, axis=0)
+                        continue
+                    except Exception:
+                        pass
+
+
+        for col in beg_df:
+            if col not in fields:
+                continue
+            for i, row in enumerate(df[col]):
+                try:
+                    row = float(row)
+                except Exception:
+                    try:
+                        beg_df.drop(i*1000, axis=0)
+                        continue
+                    except Exception:
+                        pass
+
+        for field1 in fields:
             print(field1)
-            for field2, func2 in fields:
+            for field2 in fields:
                 print('-', field2)
                 try:
 
@@ -93,15 +116,17 @@ if __name__ == '__main__':
                     if field1 not in [f[0] for f in fields] or field2 not in [f[0] for f in fields]:
                         continue
 
-
                     def map_func(col, row, func):
                         return func(col, row)
 
-                    plt.scatter(beg_df.applymap(lambda k: map_func(field1, k, func1))[field1], 
-                                beg_df.applymap(lambda k: map_func(field2, k, func2))[field2], c='blue')
+                    begx = beg_df.applymap(lambda k: map_func(field1, k, number_map))[field1]
+                    begy = beg_df.applymap(lambda k: map_func(field2, k, number_map))[field2]
 
-                    plt.scatter(mal_df.applymap(lambda k: map_func(field1, k, func1))[field1], 
-                                mal_df.applymap(lambda k: map_func(field2, k, func2))[field2], c='red')
+                    plt.scatter(begx, begy, c='blue')
+
+                    malx = mal_df.applymap(lambda k: map_func(field1, k, number_map))[field1]
+                    maly = mal_df.applymap(lambda k: map_func(field2, k, number_map))[field2]
+                    plt.scatter(malx, maly , c='red')
 
                     plt.xlabel(field1)
                     plt.ylabel(field2)
