@@ -18,11 +18,13 @@ malicious_filenames = [
 'CTU-IoT-Malware-Capture-7-1',
 'CTU-IoT-Malware-Capture-9-1',
 'CTU-IoT-Malware-Capture-3-1',
-'CTU-IoT-Malware-Capture-1-1']
+'CTU-IoT-Malware-Capture-1-1'
+]
 
 bening_filenames = [
 'CTU-Honeypot-Capture-7-1',
 'CTU-Honeypot-Capture-4-1',
-'CTU-Honeypot-Capture-5-1']
+'CTU-Honeypot-Capture-5-1'
+]
 
 filenames = malicious_filenames + bening_filenames

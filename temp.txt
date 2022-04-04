@@ -1,0 +1,13 @@
+1. Obter o dataset selecionado;
+2. Descrevê-lo em seu repositório
+(quantidade de amostras;
+classes das amostras-isto é, tipos de rótulos que categorizam as amostras e o que eles significam;
+dicionário de atributos-isto é, quantos, quais são e descrição dos atributos;)
+3. Apresentar o dataset: estude como fazer um scatterplot e aplique-o para seus dados. O scatterplot é um gráfico que rebate cada atributo pelo outro, gerando uma matriz N por N, onde N é o número de atributos.
+4. Investigar o scatterplot para discutir dataset: suas amostras são distinguíveis? Existem características/atributos que parecem não distinguir entre as amostras? Quais? Há características/atributos que parecem ser adequados para distinguir entre as classes/rótulos das amostras? Quais?
+
+A entrega dessa tarefa ficará para a próxima 2a-feira, após o feriado do carnaval (7/3).
+
+Bom fim de semana, feriado e próxima semana a todos. Nos vemos no dia 8...
+
+André Grégio
