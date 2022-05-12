@@ -30,9 +30,9 @@ fields=[
 "orig_bytes",
 "resp_bytes",
 # "conn_state",
-"local_orig",
-"local_resp",
-"missed_bytes",
+# "local_orig",
+# "local_resp",
+# "missed_bytes",
 # "history",
 "orig_pkts",
 "orig_ip_bytes",
@@ -51,11 +51,13 @@ fields=[
 if __name__ == '__main__':
     try:
         
-        df = pd.read_csv('./sample001.csv')
+        df = pd.read_csv('./parsed_34_80.csv')
 
         for col in df:
             mapping = {k: v for v, k in enumerate(df[col].unique())}
             df[col+'enum'] = df[col].map(mapping)
+
+        print(df.filter(items=fields))
 
         array = df.filter(items=fields).to_numpy()
         array = np.nan_to_num(array)
@@ -80,6 +82,8 @@ if __name__ == '__main__':
             else:
                 count_00 += 1
 
+        print('cluster 1', sum(y_kmeans))
+        print('cluster 0', len(y_kmeans)-sum(y_kmeans))
 
         print(count_11, count_10)
         print(count_01, count_00)
@@ -87,10 +91,10 @@ if __name__ == '__main__':
         print(count_11/total, count_10/total)
         print(count_01/total, count_00/total)
 
-        # plt.scatter(array[:, 0], array[:, 1], c=y_kmeans, s=50, cmap='viridis')
-        # plt.show()
-        # plt.scatter(array[:, 0], array[:, 1], c=y_real, s=50, cmap='viridis')
-        # plt.show()
+        plt.scatter(array[:, 0], array[:, 1], c=y_kmeans, s=50, cmap='viridis')
+        plt.show()
+        plt.scatter(array[:, 0], array[:, 1], c=y_real, s=50, cmap='viridis')
+        plt.show()
 
     except Exception as e_:
         traceback.print_exc()
